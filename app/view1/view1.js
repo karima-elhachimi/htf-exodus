@@ -1,21 +1,30 @@
 'use strict';
 
+
+
 angular.module('dashboard', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/dashboard', {
     templateUrl: '../templates/dashboard/main.html',
-    controller: 'DashboardCtrl'
+        controller: 'DashboardCtrl'
   });
 }])
 
 .controller('DashboardCtrl', ['$http', function($http) {
 
 
-  //console.log("IS THIS COMING THROUUUUU");
+
+  console.log("IS THIS COMING THROUUUUU");
     var dashboard = this;
 
-   dashboard.allCities = [
+
+
+        dashboard.myMap = L.map('mapCities');
+
+
+
+    dashboard.allCities = [
         {
             "id": "37aa0786-f2bc-4331-aee5-e8b05a8ab90c",
             "name": "Tokyo/Yokohama",
@@ -226,7 +235,8 @@ angular.module('dashboard', ['ngRoute'])
 
     dashboard.showMap = function(city){
 
-        var mymap = L.map('mapCities').setView(dashboard.getLL(city), 13);
+
+        dashboard.myMap.setView([37.8, -96.9], 4);
 
 
     };
@@ -261,7 +271,10 @@ angular.module('dashboard', ['ngRoute'])
         });
 
         return [lat, long];
- };
+
+    };
+
+
 
 
 

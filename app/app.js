@@ -12,11 +12,14 @@ angular.module('myApp', [
  /* $routeProvider
       .when('/view1', {
 
-        templateUrl: '/Users/yuakarima/Documents/OneDrive - Artesis Plantijn Hogeschool Antwerpen/hackthefuture/basev2/app/view1/view1.html'
+
+
+        templateUrl: './templates/dashboard/main.html'
+
 
       })
       .when('/view2', {
-        templateUrl: '/Users/yuakarima/Documents/OneDrive - Artesis Plantijn Hogeschool Antwerpen/hackthefuture/basev2/app/templates/intel/main.html'
+        templateUrl: './templates/intel/main.html'
       });
 */
 

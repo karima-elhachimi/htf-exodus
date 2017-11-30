@@ -1,0 +1,39 @@
+/* app css stylesheet */
+
+/* header */
+
+
+div.header {
+  background-color: #14030b;
+  color: white;
+
+}
+
+.container {
+  width: 70%;
+  margin: auto;
+}
+
+/* navigation */
+
+a.nav-link {
+  text-decoration: none;
+  color: #14030b;
+}
+
+ul.nav {
+  width: 70%;
+  margin: auto;
+}
+
+
+/* intel cards */
+
+.card {
+margin-top: 1%;
+}
+
+
+
+
+

@@ -2,10 +2,11 @@
 
 	<div class="card">
 		<div class="card-header">
-			<div class="city-buttons" ng-repeat="city in dashboard.cities">
-				<button class="btn" ngclick="dashboard.setCity(city.name)">{{city.name}}</button>
+			<div class="city-buttons btn-group btn-group-justified" ng-repeat="city in dashboard.cities">
+				<button class="btn" ng-click="dashboard.setCity(city.name)">{{city.name}}</button>
 
 			</div>
+			<br>
 			Selected city on the map:
 		</div>
 		<div class="card-body">
@@ -78,21 +79,14 @@
 			<thead>
 				<b>General Information</b>
 			</thead>
+			<div class="ng-repeat convoy in dashboard.convoylist">
 			<tbody>
-				<tr>
-					<td>
-						Destination
-					</td>
-					<td>
-						Destination Placeholder
-					</td>
-				</tr>
 				<tr>			
 					<td>
 						Distance to Destination
 					</td>
 					<td>
-						Distance to Destination Placeholder
+						{{convoy.distanceFromCityBorder}}
 					</td>
 				</tr>
 				<tr>			
@@ -100,38 +94,17 @@
 						Speed
 					</td>
 					<td>
-						Speed Placeholder
+						{{convoy.speedInKmPerHour}}
 					</td>
 				</tr>
-				<tr id="accordion" role="tablist" aria-multiselectable="true">					
+				<tr>			
 					<td>
-						Vehicles
+						Origin
 					</td>
-					<td role="tab" id="VehicleCollapse">
-						<div id="heading">
-
-							<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse" aria-expanded="false" aria-controls="collapse">
-
-								Show Vehicles
-
-							</a>
-
-						</div>
-
-						<div id="collapse" class="collapse" role="tabpanel" aria-labelledby="heading" data-parent="#accordion">
-
-
-
-
-
-
-
-
-
-						</div>
-
-					</td>									
-				</tr>
+					<td>
+						{{convoy.origin}}
+					</td>
+				</tr>				
 			</tbody>
 		</table>		
 	</div>	

@@ -246,7 +246,9 @@ app.controller('DashboardCtrl', ['$http', '$scope', '$q', function($http, $scope
             id: 'mapCities',
             accessToken: dashboard.accessTokenMB
         }).addTo(dashboard.myMap);
-        dashboard.myMap.setView([37.8, -96.9], 4);
+        var loc = dashboard.getLL(city);
+        console.log(loc);
+        dashboard.myMap.setView(loc, 4);
 
 
     };
@@ -273,10 +275,9 @@ app.controller('DashboardCtrl', ['$http', '$scope', '$q', function($http, $scope
         $.ajax(settings).done(function (response) {
 
 
-            console.log("cage get ll+" +angular.fromJson(response).results[0].annotations.DMS.lat);
-
-             lat = angular.fromJson(response).results[0].annotations.DMS.lat;
-             long = angular.fromJson(response).results[0].annotations.DMS.lng;
+            
+             lat = angular.fromJson(response).results[0].bounds.northeast.lat;
+             long = angular.fromJson(response).results[0].bounds.northeast.lng;
 
         });
 
@@ -319,13 +320,39 @@ app.controller('DashboardCtrl', ['$http', '$scope', '$q', function($http, $scope
             return q.promise;
         }
 
+    dashboard.getConvoys = function () {
+        var q = $q.defer(); // maakt object aan voor promise
+        $http.get('http://cunning-convoys.azurewebsites.net/api/Convoys')
+            .then(function (response) {
+                // Success
+                q.resolve(response.data);
+            }, function (response) {
+                // ERROR
+                q.reject(response.error);
+            });
+        return q.promise;
+    }
+
+
     dashboard.setCity = function (name) {
         //dashboard.selectedCity = name;
         for(var i = 0; i <= dashboard.cities.length; i+=1) {
             if (dashboard.cities[i].name == name) {
                 dashboard.selectedCity = dashboard.cities[i];
-                dashboard.apply();
+                dashboard.updateConvoys();
+                dashboard.showMap(dashboard.selectedCity.name);
+
                 return;
+            }
+        }
+    }
+
+    dashboard.updateConvoys = function(name) {
+
+        dashboard.convoylist = [];
+        for(var i = 0; i <= dashboard.convoys.length; i++) {
+            if (dashboard.convoys[i].destinationCity == name) {
+                dashboard.convoylist.push(dashboard.convoys[i]);
             }
         }
     }
@@ -334,9 +361,10 @@ app.controller('DashboardCtrl', ['$http', '$scope', '$q', function($http, $scope
         dashboard.cities = cities;
     });
 
-
+    dashboard.getConvoys().then(convoys => {
+        dashboard.convoys = convoys
+    })
     console.log(dashboard.cities);
-    dashboard.showMap("Tokyo");
 
 
 }]);

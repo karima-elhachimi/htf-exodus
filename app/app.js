@@ -13,11 +13,11 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
   $routeProvider
       .when('/view1', {
 
-        templateUrl: '/Users/yuakarima/Documents/OneDrive - Artesis Plantijn Hogeschool Antwerpen/hackthefuture/basev2/app/templates/dashboard/main.html'
+        templateUrl: './templates/dashboard/main.html'
 
       })
       .when('/view2', {
-        templateUrl: '/Users/yuakarima/Documents/OneDrive - Artesis Plantijn Hogeschool Antwerpen/hackthefuture/basev2/app/templates/intel/main.html'
+        templateUrl: './templates/intel/main.html'
       });
 
 

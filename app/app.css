@@ -33,6 +33,12 @@ ul.nav {
 margin-top: 1%;
 }
 
+/*map */
+
+#mapCities {
+  height: 60vh;
+}
+
 
 
 

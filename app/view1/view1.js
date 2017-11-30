@@ -4,7 +4,7 @@ angular.module('dashboard', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/dashboard', {
-    templateUrl: 'view1/view1.html',
+    templateUrl: '../templates/dashboard/main.html',
     controller: 'DashboardCtrl'
   });
 }])
@@ -12,10 +12,10 @@ angular.module('dashboard', ['ngRoute'])
 .controller('DashboardCtrl', ['$http', function($http) {
 
 
-  console.log("IS THIS COMING THROUUUUU");
+  //console.log("IS THIS COMING THROUUUUU");
     var dashboard = this;
 
-   this.allCities = [
+   dashboard.allCities = [
         {
             "id": "37aa0786-f2bc-4331-aee5-e8b05a8ab90c",
             "name": "Tokyo/Yokohama",
@@ -224,9 +224,9 @@ angular.module('dashboard', ['ngRoute'])
 
     //dashboard.getCities("http://cunning-convoys.azurewebsites.net/api/Cities");
 
-    dashboard.showMap = function(){
+    dashboard.showMap = function(city){
 
-        var map = new L.Map("map", {center: [37.8, -96.9], zoom: 4});
+        var mymap = L.map('mapCities').setView(dashboard.getLL(city), 13);
 
 
     };
@@ -248,19 +248,24 @@ angular.module('dashboard', ['ngRoute'])
             "url":url,
             "method": "GET"
 
-        }
+        };
 
         $.ajax(settings).done(function (response) {
 
 
-            console.log("cage get ll+" +angular.toJson(response));
+            console.log("cage get ll+" +angular.fromJson(response).results[0].annotations.DMS.lat);
+
+             lat = angular.fromJson(response).results[0].annotations.DMS.lat;
+             long = angular.fromJson(response).results[0].annotations.DMS.lng;
 
         });
+
+        return [lat, long];
  };
 
 
 
-    dashboard.getLL();
+    dashboard.showMap("Tokyo");
 
 
 }]);

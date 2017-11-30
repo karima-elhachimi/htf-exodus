@@ -2,9 +2,9 @@
 
 
 
-angular.module('dashboard', ['ngRoute'])
+var app = angular.module('dashboard', ['ngRoute'])
 
-.config(['$routeProvider', function($routeProvider) {
+app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/dashboard', {
     templateUrl: '../templates/dashboard/main.html',
         controller: 'DashboardCtrl',
@@ -12,12 +12,14 @@ angular.module('dashboard', ['ngRoute'])
   });
 }])
 
-.controller('DashboardCtrl', ['$http', function($http) {
+app.controller('DashboardCtrl', ['$http', '$scope', '$q', function($http, $scope, $q) {
 
     var dashboard = this;
-
-
-
+    dashboard.selectedCity = "";
+    dashboard.cities;
+    dashboard.convoys;
+    dashboard.dmv;
+    dashboard.help = "yo";
 
     dashboard.accessTokenMB = 'pk.eyJ1Ijoia2FyaW1hZSIsImEiOiJjamFtZzRqcmwzd25mMndxODk0MG1oNWcwIn0.W61M8fvLE2teV6JgLK1yYA';
 
@@ -208,7 +210,7 @@ angular.module('dashboard', ['ngRoute'])
 
     dashboard.getCities = function(url_) {
 
-//"http://cunning-convoys.azurewebsites.net/api/Cities";
+//"ttp://cuhnning-convoys.azurewebsites.net/api/Cities";
         var url = url_;
 
 
@@ -229,9 +231,8 @@ angular.module('dashboard', ['ngRoute'])
         $http.get(url).then(function onSuccess(r){
 
           console.log("get "+ r);
+          return r;
         });
-
-
     };
 
     //dashboard.getCities("http://cunning-convoys.azurewebsites.net/api/Cities");
@@ -283,10 +284,58 @@ angular.module('dashboard', ['ngRoute'])
 
     };
 
+    dashboard.updateCities = function() {
+
+        var settings = {
+            "async": false,
+            "crossDomain": true,
+            "url": "http://cunning-convoys.azurewebsites.net/api/Cities",
+            "method": "GET"
+
+        };
+        $.ajax(settings).done(function (response) {
+
+            return response;
+        });
+/*
+        $http.get("http://cunning-convoys.azurewebsites.net/api/Convoys").then(function onSuccess(r){
+            dashboard.convoys = r;          
+        });
+        $http.get("http://cunning-convoys.azurewebsites.net/api/Dmv").then(function onSuccess(r){
+            dashboard.dmv = r;          
+        });                */
+    }
+
+        dashboard.getCities = function () {
+            var q = $q.defer(); // maakt object aan voor promise
+            $http.get('http://cunning-convoys.azurewebsites.net/api/Cities')
+                .then(function (response) {
+                    // Success
+                    q.resolve(response.data);
+                }, function (response) {
+                    // ERROR
+                    q.reject(response.error);
+                });
+            return q.promise;
+        }
+
+    dashboard.setCity = function (name) {
+        //dashboard.selectedCity = name;
+        for(var i = 0; i <= dashboard.cities.length; i+=1) {
+            if (dashboard.cities[i].name == name) {
+                dashboard.selectedCity = dashboard.cities[i];
+                dashboard.apply();
+                return;
+            }
+        }
+    }
+
+    dashboard.getCities().then(cities => {
+        dashboard.cities = cities;
+    });
 
 
-
-
+    console.log(dashboard.cities);
     dashboard.showMap("Tokyo");
 
 

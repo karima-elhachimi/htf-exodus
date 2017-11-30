@@ -2,8 +2,8 @@
 
 	<div class="card">
 		<div class="card-header">
-			<div class="city-buttons" ng-repeat="city in dashboard.allCities">
-				<button class="btn">{{city.name}}</button>
+			<div class="city-buttons" ng-repeat="city in dashboard.cities">
+				<button class="btn" ngclick="dashboard.setCity(city.name)">{{city.name}}</button>
 
 			</div>
 			Selected city on the map:
@@ -16,7 +16,6 @@
 	<div class="card">
 
 	<div class="card-header">
-
 
 	</div>
 	<div class="card-body">
@@ -32,7 +31,7 @@
 						Name
 					</td>
 					<td>
-						Placeholder Name
+						{{dashboard.selectedCity.name}}
 					</td>
 				</tr>
 				<tr>			
@@ -40,7 +39,7 @@
 						Population
 					</td>
 					<td>
-						Placeholder Population
+						{{dashboard.selectedCity.population}}
 					</td>
 				</tr>
 				<tr>			
@@ -48,7 +47,7 @@
 						Population Density
 					</td>
 					<td>
-						Placeholder Population Density
+						{{dashboard.selectedCity.population/dashboard.selectedCity.area}}
 					</td>
 				</tr>
 				<tr>					
@@ -56,7 +55,7 @@
 						Area
 					</td>
 					<td>
-						Placeholder Area
+						{{dashboard.selectedCity.area}}
 					</td>									
 				</tr>
 			</tbody>

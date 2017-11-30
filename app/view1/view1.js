@@ -7,20 +7,23 @@ angular.module('dashboard', ['ngRoute'])
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/dashboard', {
     templateUrl: '../templates/dashboard/main.html',
-        controller: 'DashboardCtrl'
+        controller: 'DashboardCtrl',
+      controllerAs: 'dashboard'
   });
 }])
 
 .controller('DashboardCtrl', ['$http', function($http) {
 
-
-
-  console.log("IS THIS COMING THROUUUUU");
     var dashboard = this;
 
 
 
-        dashboard.myMap = L.map('mapCities');
+
+    dashboard.accessTokenMB = 'pk.eyJ1Ijoia2FyaW1hZSIsImEiOiJjamFtZzRqcmwzd25mMndxODk0MG1oNWcwIn0.W61M8fvLE2teV6JgLK1yYA';
+
+
+
+    dashboard.myMap = L.map('mapCities');
 
 
 
@@ -236,6 +239,12 @@ angular.module('dashboard', ['ngRoute'])
     dashboard.showMap = function(city){
 
 
+        L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2FyaW1hZSIsImEiOiJjamFtZzRqcmwzd25mMndxODk0MG1oNWcwIn0.W61M8fvLE2teV6JgLK1yYA', {
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapCities',
+            accessToken: dashboard.accessTokenMB
+        }).addTo(dashboard.myMap);
         dashboard.myMap.setView([37.8, -96.9], 4);
 
 

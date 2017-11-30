@@ -1,8 +1,23 @@
 <div class="container" >
-<div class="card">
+
+	<div class="card">
+		<div class="card-header">
+			<div class="city-buttons" ng-repeat="city in dashboard.allCities">
+				<button class="btn">{{city.name}}</button>
+
+			</div>
+			Selected city on the map:
+		</div>
+		<div class="card-body">
+			<div id="mapCities"></div>
+		</div>
+	</div>
+
+	<div class="card">
+
 	<div class="card-header">
 
-		<div id="mapCities"></div>
+
 	</div>
 	<div class="card-body">
 	</div>
